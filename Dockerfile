@@ -4,15 +4,19 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
     perl \
+    python3 \
     samtools \
+    sambamba \
+    last-align \
+    bedtools \
+    r-base \
+    default-jre \
+    build-essential \
+    git \
     curl \
     wget \
     unzip \
-    git \
-    build-essential \
-    default-jre \
-    r-base \
-    python3 \
+    bash \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt

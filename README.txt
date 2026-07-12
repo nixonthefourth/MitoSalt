@@ -4,7 +4,7 @@
 
 This repository contains a Dockerised build of **MitoSAlt**, adapted to support **long-read sequencing data**. Unlike the standard MitoSAlt pipeline, which takes paired-end FASTQ files as input, this adaptation accepts a single **aligned BAM file** as input, making it suitable for long-read platforms.
 
-This work is being developed as part of a bioinformatics project with **UCL**, with the container intended for eventual deployment on the **Genomics England Research Environment**.
+This work is being developed as part of a bioinformatics project with UCL, with the container intended for eventual deployment on the **Genomics England Research Environment**.
 
 ## Project Goals
 

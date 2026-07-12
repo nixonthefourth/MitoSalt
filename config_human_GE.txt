@@ -1,0 +1,12 @@
+lastal = /usr/bin/lastal
+lastsp = /usr/bin/last-split
+mfcv = /usr/bin/maf-convert
+samtools = /usr/bin/samtools
+sambamba = /usr/bin/sambamba
+gcov = /usr/bin/genomeCoverageBed
+intersectBed = /usr/bin/intersectBed
+sortBed = /usr/bin/sortBed
+clusterBed = /usr/bin/clusterBed
+randomBed = /usr/bin/randomBed
+groupBy = /usr/bin/groupBy
+bg2bw = /usr/local/bin/bedGraphToBigWig

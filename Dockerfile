@@ -17,15 +17,15 @@ RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     bash \
-    && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/*
 
-RUN wget -O /usr/local/bin/bedGraphToBigWig \
-    https://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig && \
-    chmod +x /usr/local/bin/bedGraphToBigWig
+RUN wget -q -O /usr/local/bin/bedGraphToBigWig \
+    https://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig \
+ && chmod +x /usr/local/bin/bedGraphToBigWig
 
 WORKDIR /opt
 
-COPY MitoSAlt_1.1.1 ./MitoSAlt_1.1.1
-COPY supervisor ./supervisor
+COPY MitoSAlt_1.1.1/ /opt/MitoSAlt_1.1.1/
+COPY supervisor/MitoSAlt1.1.1_LR.pl /opt/MitoSAlt_1.1.1/MitoSAlt1.1.1_LR.pl
 
 CMD ["/bin/bash"]

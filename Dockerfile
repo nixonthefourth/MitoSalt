@@ -19,6 +19,10 @@ RUN apt-get update && apt-get install -y \
     bash \
     && rm -rf /var/lib/apt/lists/*
 
+RUN wget -O /usr/local/bin/bedGraphToBigWig \
+    https://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/bedGraphToBigWig && \
+    chmod +x /usr/local/bin/bedGraphToBigWig
+
 WORKDIR /opt
 
 COPY MitoSAlt_1.1.1 ./MitoSAlt_1.1.1

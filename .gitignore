@@ -1,0 +1,38 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Docker
+*.log
+docker-compose.override.yml
+.docker/
+
+# Perl
+*.bak
+*.old
+blib/
+pm_to_blib
+Makefile.old
+*.tar.gz
+cover_db/
+.build/
+_build/
+local/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Reference data / large files (adjust as needed)
+*.fa
+*.fasta
+*.fai
+*.bam
+*.bai
+*.sam

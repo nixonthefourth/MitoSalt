@@ -1,19 +1,42 @@
-# MitoSAlt Docker Container
+# MitoSAlt (Long-Read Adaptation) — Docker Container
 
-Current status
+## Overview
 
-- Docker container builds successfully
-- Perl runtime installed
-- samtools installed
-- sambamba installed
-- LAST installed
-- bedtools installed
-- R installed
-- Java installed
-- UCSC bedGraphToBigWig installed
+This repository contains a Dockerised build of **MitoSAlt**, adapted to support **long-read sequencing data**. Unlike the standard MitoSAlt pipeline, which takes paired-end FASTQ files as input, this adaptation accepts a single **aligned BAM file** as input, making it suitable for long-read platforms.
 
-Remaining work
+This work is being developed as part of a bioinformatics project with **UCL**, with the container intended for eventual deployment on the **Genomics England Research Environment**.
 
-- Configure runtime paths
-- Determine location of reference genome and indexes
-- Test with real BAM data
+## Project Goals
+
+- Adapt the MitoSAlt pipeline to accept aligned BAM input in place of raw FASTQ pairs
+- Package all required dependencies into a reproducible Docker container
+- Validate the pipeline against real sequencing data
+- Prepare the container for deployment within the Genomics England Research Environment
+
+## Current Status
+
+### Completed
+
+- Docker image builds successfully
+- Core runtime dependencies installed:
+  - Perl
+  - R
+  - Java
+- Bioinformatics tools installed:
+  - samtools
+  - sambamba
+  - LAST
+  - bedtools
+  - UCSC `bedGraphToBigWig`
+
+### Remaining Work
+
+- [ ] Configure runtime paths within the container
+- [ ] Determine and set the location of the reference genome and associated indexes
+- [ ] Test the pipeline end-to-end using real BAM data
+- [ ] Validate output against expected MitoSAlt results
+- [ ] Document deployment steps for the Genomics England Research Environment
+
+## Notes
+
+This README will be updated as the pipeline is adapted and validated. Contributions, questions, and issue reports are welcome as the project progresses.

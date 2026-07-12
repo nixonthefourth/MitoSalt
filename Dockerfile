@@ -26,6 +26,7 @@ RUN wget -q -O /usr/local/bin/bedGraphToBigWig \
 WORKDIR /opt
 
 COPY MitoSAlt_1.1.1/ /opt/MitoSAlt_1.1.1/
-COPY supervisor/MitoSAlt1.1.1_LR.pl /opt/MitoSAlt_1.1.1/MitoSAlt1.1.1_LR.pl
+COPY supervisor/MitoSAlt1.1.1_LR.pl \
+     /opt/MitoSAlt_1.1.1/MitoSAlt1.1.1_LR.pl
 
 CMD ["/bin/bash"]

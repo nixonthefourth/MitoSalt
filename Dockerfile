@@ -29,4 +29,15 @@ COPY MitoSAlt_1.1.1/ /opt/MitoSAlt_1.1.1/
 COPY supervisor/MitoSAlt1.1.1_LR.pl \
      /opt/MitoSAlt_1.1.1/MitoSAlt1.1.1_LR.pl
 
+COPY config_human_GE.txt /opt/MitoSAlt_1.1.1/config_human_GE.txt
+
+RUN mkdir -p \
+    bam \
+    bw \
+    genome \
+    indel \
+    log \
+    plot \
+    tab
+
 CMD ["/bin/bash"]

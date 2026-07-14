@@ -1,4 +1,5 @@
 # MitoSAlt (Long-Read Adaptation) — Docker Container
+---
 
 ## Overview
 
@@ -34,7 +35,6 @@ This work is being developed as part of a bioinformatics project with UCL, with 
 - [ ] Configure runtime paths within the container
 - [ ] Determine and set the location of the reference genome and associated indexes
 - [ ] Test the pipeline end-to-end using real BAM data
-- [ ] Validate output against expected MitoSAlt results
 - [ ] Document deployment steps for the Genomics England Research Environment
 
 ## Notes

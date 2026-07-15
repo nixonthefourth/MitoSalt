@@ -32,12 +32,13 @@ COPY supervisor/MitoSAlt1.1.1_LR.pl \
 COPY config_human_GE.txt /opt/MitoSAlt_1.1.1/config_human_GE.txt
 
 RUN mkdir -p \
-    bam \
-    bw \
-    genome \
-    indel \
-    log \
-    plot \
-    tab
+    /opt/MitoSAlt_1.1.1/bam \
+    /opt/MitoSAlt_1.1.1/bw \
+    /opt/MitoSAlt_1.1.1/indel \
+    /opt/MitoSAlt_1.1.1/log \
+    /opt/MitoSAlt_1.1.1/plot \
+    /opt/MitoSAlt_1.1.1/tab
+
+RUN chmod +x /opt/MitoSAlt_1.1.1/MitoSAlt1.1.1_LR.pl
 
 CMD ["/bin/bash"]

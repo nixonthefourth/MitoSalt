@@ -76,6 +76,7 @@ my $exclude = $User_Preferences->{exclude};
 my $dloop1 = $exclude;
 my $dloop2 = $msize - $exclude;
 my $hash;
+my $origin_threshold = 10;
 
 #SCORING AND FILTERING FEATURES
 my $score_threshold = $User_Preferences->{score_threshold};
@@ -383,6 +384,7 @@ sub process_hash{
       next if $min_start <= $dloop1 && $max_end >= $dloop2;
 
       my ($size,$start,$end) = &get_frag_distance(\@read_starts,\@read_ends,$read_check,$msize);
+      next unless defined $start && defined $end && defined $size;
       next if $size < $deletion_threshold_min;
       next if $size > $deletion_threshold_max;
       next if $read_strands[0] ne $read_strands[1];#SPLIT READS IN OPPOSITE STRANDS MAY INDICATE INVERSION
@@ -418,6 +420,7 @@ sub process_hash{
       $start = $len[2];
       $end = $len[3];
       $size = $len[4];
+      next unless defined $start && defined $end && defined $size;
 
       print BP "$refchr\t$name\t$size\t$start\t$end\t$read_lengths[0]\t$read_lengths[1]\t$paired_support\t$distance_paired_support\t$read_check\n";
       print BPS "$refchr\t$start\t$start\t$name\t0\t+\n" if $read_check eq 'no';
@@ -472,8 +475,9 @@ sub process_hash1{
       my $as=join(';',@read_starts);my $ae=join(';',@read_ends);my $asr=join(';',@read_strands);my $als=join(';',@read_local_starts);
       my @pos = (1000,1000,1000,1000);
       #CHECK FOR FALSE SPLITS AT ORIGIN WITH A REAL DELETION
-      $pos[0] = 0 if grep {$_ == 0} @read_starts;
-      $pos[1] = $msize if grep {$_ == $msize} @read_starts;
+      #changed here to alow a threshold, rather than exact end:
+      $pos[0] = 0 if grep {$_ <= $origin_threshold} @read_starts;
+      $pos[1] = $msize if grep {$_ >= $msize - $origin_threshold} @read_starts;
       $pos[2] = 0 if grep {$_ == 0} @read_ends;
       $pos[3] = $msize if grep {$_ == $msize} @read_ends;
 
@@ -492,13 +496,16 @@ sub process_hash1{
           my $start_check=$sort_hash->{$local_start}->{start};
           my $end_check=$sort_hash->{$local_start}->{end};
           my $pos_check='no';
-          $pos_check='yes' unless($start_check==0||$start_check==$msize||$end_check==0||$end_check==$msize);
+          $pos_check='yes' unless($start_check <= $origin_threshold || $start_check >= $msize - $origin_threshold || $end_check <= $origin_threshold || $end_check >= $msize - $origin_threshold);
           if($pos_check eq 'yes'){last;}
           $order_count++;
         }
 
-        my $delete_count=3 if $order_count==1;
-        $delete_count=1 if $order_count==3;
+        my $delete_count;
+        $delete_count = 3 if $order_count == 1;
+        $delete_count = 1 if $order_count == 3;
+        $delete_count = 2 if $order_count == 2; #ADDED FOR ONT: handle case where middle fragment is the non-origin one
+        next unless defined $delete_count;
         $order_count=1;
         foreach my $local_start (sort { $a <=> $b } keys %{$sort_hash}){
           delete $sort_hash->{$local_start} if($order_count==$delete_count);
@@ -534,6 +541,7 @@ sub process_hash1{
         if($read_startsN[0]<$read_startsN[1] && $read_local_startsN[0]>$read_local_startsN[1]){$read_check = 'yes';}
         elsif($read_startsN[0]>$read_startsN[1] && $read_local_startsN[0]<$read_local_startsN[1]){$read_check = 'yes';}
         my ($size,$start,$end) = &get_frag_distance(\@read_startsN,\@read_endsN,$read_check,$msize);
+        next unless defined $start && defined $end && defined $size;
         next if $size < $deletion_threshold_min;
         next if $size > $deletion_threshold_max;
 
@@ -565,7 +573,6 @@ sub process_hash1{
         #$start = $len[2];
         #$end = $len[3];
         #$size = $len[4];
-
         print BP "$refchr\t$name\t$size\t$start\t$end\t$read_lengths[0]\t$read_lengths[1]\t$paired_support\t$distance_paired_support\t$read_check\n";
         print BPS "$refchr\t$start\t$start\t$name\t0\t+\n" if $read_check eq 'no';
         print BPS "$refchr\t$start\t$start\t$name\t0\t-\n" if $read_check eq 'yes';
